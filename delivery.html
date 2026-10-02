@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quick Bite - Delivery Details</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">🍴 Quick Bite</div>
+
+    <nav>
+
+        <button onclick="location.href='home.html'">
+            Home
+        </button>
+
+        <button onclick="location.href='about.html'">
+            About Us
+        </button>
+
+        <button onclick="location.href='services.html'">
+            Services
+        </button>
+
+        <button onclick="location.href='home.html'">
+            🛒 Cart
+        </button>
+
+        <button onclick="location.href='orders.html'">
+            📦 My Orders
+        </button>
+
+    </nav>
+
+</header>
+
+
+<section class="section">
+
+    <h2>📍 Delivery Details</h2>
+
+    <label>Department</label>
+
+    <select id="department">
+
+        <option value="">
+            Select Department
+        </option>
+
+        <option>Computer Science</option>
+        <option>Science</option>
+        <option>Commerce</option>
+        <option>Arts</option>
+        <option>Administration</option>
+
+    </select>
+
+
+    <label>Room / Office</label>
+
+    <input
+        type="text"
+        id="room"
+        placeholder="Enter Room Number"
+    >
+
+
+    <button
+        class="main-btn"
+        onclick="location.href='location.html'">
+    >
+        📍 Check Location
+    </button>
+
+
+    <p id="locationMessage"></p>
+
+</section>
+
+
+<footer>
+
+    © 2026 Quick Bite 
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

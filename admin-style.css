@@ -1,0 +1,438 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    color: #222;
+}
+
+
+/* HEADER */
+
+header {
+    background: white;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logo span {
+    display: block;
+    font-size: 13px;
+    color: #555;
+    margin-top: 4px;
+}
+
+
+/* NAVIGATION */
+
+nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+nav button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: #eeeeee;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+nav button:hover {
+    background: #d8eee7;
+}
+
+
+/* DASHBOARD */
+
+.dashboard {
+    padding: 40px;
+    max-width: 1300px;
+    margin: auto;
+}
+
+.dashboard h1 {
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+.welcome {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+
+/* STATISTICS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    margin-bottom: 45px;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.stat-card h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.stat-card p {
+    color: #666;
+}
+
+
+/* SECTION TITLE */
+
+.section-title {
+    margin-bottom: 20px;
+}
+
+
+/* ADMIN CARDS */
+
+.admin-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.admin-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.admin-card .icon {
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.admin-card h3 {
+    margin-bottom: 10px;
+}
+
+.admin-card p {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.admin-card button {
+    border: none;
+    padding: 11px 18px;
+    border-radius: 8px;
+    background: #48b89a;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.admin-card button:hover {
+    background: #35977e;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .admin-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .dashboard {
+        padding: 20px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-cards {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* =========================
+   ORDERS TABLE
+========================= */
+
+.orders-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+}
+
+th {
+    background: #f3f3f3;
+    font-size: 14px;
+}
+
+td {
+    font-size: 14px;
+}
+
+.status {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 20px;
+    background: #e0f4dc;
+    color: #287239;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.view-btn {
+    border: none;
+    padding: 9px 13px;
+    border-radius: 8px;
+    background: #48b89a;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.view-btn:hover {
+    background: #35977e;
+}
+
+.no-orders {
+    background: white;
+    padding: 30px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 15px;
+    color: #666;
+}
+/* Order Status Page */
+
+.status-card {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.status-card h3 {
+    margin-bottom: 20px;
+}
+
+.status-card p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.status-card label {
+    display: block;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.status-card select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.update-btn,
+.back-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.update-btn {
+    background: #28a745;
+    color: white;
+}
+
+.back-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.update-btn:hover,
+.back-btn:hover {
+    opacity: 0.85;
+}
+
+#message {
+    margin-top: 20px;
+    font-weight: bold;
+}
+/* Menu Management */
+
+.menu-form {
+    background: white;
+    padding: 25px;
+    margin: 25px 0;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.menu-form input,
+.menu-form select {
+    padding: 12px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+}
+
+.add-btn {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 7px;
+    background: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+.menu-table {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.menu-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.menu-table th,
+.menu-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.menu-table th {
+    font-weight: bold;
+}
+
+.edit-btn,
+.delete-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 3px;
+}
+
+.edit-btn {
+    background: #ffc107;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.add-btn:hover,
+.edit-btn:hover,
+.delete-btn:hover {
+    opacity: 0.8;
+}
+/* Reports & Analytics */
+
+.report-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.report-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.report-card h3 {
+    margin-bottom: 15px;
+}
+
+.report-card p {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+/* Responsive */
+
+@media (max-width: 800px) {
+
+    .report-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .report-cards {
+        grid-template-columns: 1fr;
+    }
+
+}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports & Analytics - Quick Bite</title>
+
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+
+<body>
+
+<header class="admin-header">
+
+    <h1>🍔 Quick Bite - Admin Panel</h1>
+
+    <nav>
+        <button onclick="goDashboard()">Dashboard</button>
+        <button onclick="goOrders()">Orders</button>
+        <button onclick="goMenu()">Menu</button>
+        <button onclick="goReports()">Reports</button>
+        <button onclick="logout()">Logout</button>
+    </nav>
+
+</header>
+
+
+<main class="admin-container">
+
+    <h2>📊 Reports & Analytics</h2>
+
+
+    <!-- Summary Cards -->
+
+    <div class="report-cards">
+
+        <div class="report-card">
+            <h3>Total Orders</h3>
+            <p id="totalOrders">0</p>
+        </div>
+
+        <div class="report-card">
+            <h3>Delivered Orders</h3>
+            <p id="deliveredOrders">0</p>
+        </div>
+
+        <div class="report-card">
+            <h3>Pending Orders</h3>
+            <p id="pendingOrders">0</p>
+        </div>
+
+        <div class="report-card">
+            <h3>Total Revenue</h3>
+            <p id="totalRevenue">₹0</p>
+        </div>
+
+    </div>
+
+
+    <!-- Order Report -->
+
+    <div class="menu-table">
+
+        <h3>📋 Order Report</h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                    <th>Total</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="reportList"></tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+
+<script>
+
+let orders =
+    JSON.parse(localStorage.getItem("quickBiteOrders")) || [];
+
+
+// Generate Report
+
+function generateReport() {
+
+    let totalOrders = orders.length;
+
+    let deliveredOrders = 0;
+
+    let pendingOrders = 0;
+
+    let totalRevenue = 0;
+
+
+    orders.forEach(order => {
+
+        let status = order.status || "Pending";
+
+        if (status === "Delivered") {
+
+            deliveredOrders++;
+
+        }
+
+
+        if (
+            status === "Pending" ||
+            status === "Accepted" ||
+            status === "Preparing" ||
+            status === "Ready" ||
+            status === "Out for Delivery"
+        ) {
+
+            pendingOrders++;
+
+        }
+
+
+        totalRevenue += Number(order.total) || 0;
+
+    });
+
+
+    document.getElementById("totalOrders").innerText =
+        totalOrders;
+
+
+    document.getElementById("deliveredOrders").innerText =
+        deliveredOrders;
+
+
+    document.getElementById("pendingOrders").innerText =
+        pendingOrders;
+
+
+    document.getElementById("totalRevenue").innerText =
+        "₹" + totalRevenue;
+
+
+    displayReport();
+
+}
+
+
+// Display Orders
+
+function displayReport() {
+
+    let list =
+        document.getElementById("reportList");
+
+    list.innerHTML = "";
+
+
+    if (orders.length === 0) {
+
+        list.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    No orders available
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    orders.forEach((order, index) => {
+
+        list.innerHTML += `
+
+            <tr>
+
+                <td>${index + 1}</td>
+
+                <td>
+                    ${order.id || "ORD" + (index + 1)}
+                </td>
+
+                <td>
+                    ${order.date || "N/A"}
+                </td>
+
+                <td>
+                    ${order.status || "Pending"}
+                </td>
+
+                <td>
+                    ${order.payment || "N/A"}
+                </td>
+
+                <td>
+                    ₹${order.total || 0}
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+// Navigation
+
+function goDashboard() {
+
+    window.location.href = "dashboard.html";
+
+}
+
+
+function goOrders() {
+
+    window.location.href = "orders.html";
+
+}
+
+
+function goMenu() {
+
+    window.location.href = "menu-management.html";
+
+}
+
+
+function goReports() {
+
+    window.location.href = "reports.html";
+
+}
+
+
+function logout() {
+
+    sessionStorage.removeItem("adminLoggedIn");
+
+    window.location.href = "login.html";
+
+}
+
+
+// Run Report
+
+generateReport();
+
+</script>
+
+</body>
+</html>

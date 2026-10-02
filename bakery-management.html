@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakery Management - Quick Bite</title>
+
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+
+<body>
+
+<header class="admin-header">
+
+    <h1>🍔 Quick Bite - Admin Panel</h1>
+
+    <nav>
+        <button onclick="goDashboard()">Dashboard</button>
+        <button onclick="goOrders()">Orders</button>
+        <button onclick="goMenu()">Menu</button>
+        <button onclick="goReports()">Reports</button>
+        <button onclick="logout()">Logout</button>
+    </nav>
+
+</header>
+
+
+<main class="admin-container">
+
+    <h2>🥐 Bakery Management</h2>
+
+    <!-- Add Bakery Item -->
+
+    <div class="menu-form">
+
+        <h3>Add Bakery Item</h3>
+
+        <input
+            type="text"
+            id="bakeryName"
+            placeholder="Bakery Item Name"
+        >
+
+        <input
+            type="number"
+            id="bakeryPrice"
+            placeholder="Price"
+        >
+
+        <button class="add-btn" onclick="addBakeryItem()">
+            ➕ Add Item
+        </button>
+
+    </div>
+
+
+    <!-- Bakery Table -->
+
+    <div class="menu-table">
+
+        <h3>Available Bakery Items</h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Item Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="bakeryList"></tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+
+<script>
+
+let bakeryItems =
+    JSON.parse(localStorage.getItem("quickBiteBakery")) || [
+
+        {
+            name: "Veg Puff",
+            price: 30
+        },
+
+        {
+            name: "Cream Roll",
+            price: 35
+        },
+
+        {
+            name: "Chocolate Cake",
+            price: 60
+        },
+
+        {
+            name: "Donut",
+            price: 40
+        },
+
+        {
+            name: "Pastry",
+            price: 45
+        }
+
+    ];
+
+
+displayBakery();
+
+
+function displayBakery() {
+
+    let list = document.getElementById("bakeryList");
+
+    list.innerHTML = "";
+
+    bakeryItems.forEach((item, index) => {
+
+        list.innerHTML += `
+
+            <tr>
+
+                <td>${index + 1}</td>
+
+                <td>${item.name}</td>
+
+                <td>₹${item.price}</td>
+
+                <td>
+
+                    <button
+                        class="edit-btn"
+                        onclick="editBakery(${index})">
+                        ✏️ Edit
+                    </button>
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteBakery(${index})">
+                        🗑️ Delete
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+function addBakeryItem() {
+
+    let name =
+        document.getElementById("bakeryName").value.trim();
+
+    let price =
+        document.getElementById("bakeryPrice").value;
+
+
+    if (name === "" || price === "") {
+
+        alert("Please enter item name and price.");
+
+        return;
+
+    }
+
+
+    bakeryItems.push({
+
+        name: name,
+
+        price: Number(price)
+
+    });
+
+
+    saveBakery();
+
+
+    document.getElementById("bakeryName").value = "";
+
+    document.getElementById("bakeryPrice").value = "";
+
+
+    alert("✅ Bakery item added successfully!");
+
+}
+
+
+function editBakery(index) {
+
+    let newName =
+        prompt(
+            "Enter Bakery Item Name:",
+            bakeryItems[index].name
+        );
+
+
+    if (
+        newName === null ||
+        newName.trim() === ""
+    ) {
+        return;
+    }
+
+
+    let newPrice =
+        prompt(
+            "Enter Price:",
+            bakeryItems[index].price
+        );
+
+
+    if (
+        newPrice === null ||
+        newPrice === ""
+    ) {
+        return;
+    }
+
+
+    bakeryItems[index].name =
+        newName.trim();
+
+    bakeryItems[index].price =
+        Number(newPrice);
+
+
+    saveBakery();
+
+
+    alert("✅ Bakery item updated!");
+
+}
+
+
+function deleteBakery(index) {
+
+    let confirmDelete =
+        confirm(
+            "Are you sure you want to delete " +
+            bakeryItems[index].name + "?"
+        );
+
+
+    if (confirmDelete) {
+
+        bakeryItems.splice(index, 1);
+
+        saveBakery();
+
+        alert("🗑️ Bakery item deleted!");
+
+    }
+
+}
+
+
+function saveBakery() {
+
+    localStorage.setItem(
+        "quickBiteBakery",
+        JSON.stringify(bakeryItems)
+    );
+
+    displayBakery();
+
+}
+
+
+// Navigation
+
+function goDashboard() {
+
+    window.location.href = "dashboard.html";
+
+}
+
+
+function goOrders() {
+
+    window.location.href = "orders.html";
+
+}
+
+
+function goMenu() {
+
+    window.location.href = "menu-management.html";
+
+}
+
+
+function goReports() {
+
+    window.location.href = "reports.html";
+
+}
+
+
+function logout() {
+
+    sessionStorage.removeItem("adminLoggedIn");
+
+    window.location.href = "login.html";
+
+}
+
+</script>
+
+</body>
+</html>

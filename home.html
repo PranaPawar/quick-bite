@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Bite - Canteen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🍴 Quick Bite</div>
+
+    <nav>
+        <button onclick="goHome()">Home</button>
+        <button onclick="location.href='about.html'">
+    About Us
+</button>
+
+<button onclick="location.href='services.html'">
+    Services
+</button>
+        <button onclick="openCart()">🛒 Cart
+            <span id="cartCount">0</span>
+        </button>
+        <button onclick="location.href='orders.html'">📦 My Orders</button>
+        <button onclick="location.href='profile.html'">Profile</button>
+        <button onclick="location.href='login.html'">Admin</button>
+         <button onclick="logout()">Logout</button>
+        
+    </nav>
+</header>
+
+<!-- HOME -->
+<section id="home">
+
+    <div class="hero">
+        <div>
+            <p>TEACHER / STAFF CANTEEN</p>
+
+            <h1>
+                Fresh Food,
+                <span>Quickly Delivered!</span>
+            </h1>
+
+            <p>
+                Order food from the college canteen
+                and nearby bakery.
+            </p>
+
+            <button class="main-btn" onclick="showMenu()">
+                Browse Menu
+            </button>
+        </div>
+
+        <div class="food-icon">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUDPzsKD6nHY-MzsN9GGSmtbXTvMHYdJktgHszPWyZDQ&s=10" alt="fresh food">
+        </div>
+    </div>
+
+</section>
+
+
+<!-- MENU -->
+<section id="menu" class="section">
+
+    <h2>🍽 Canteen Menu</h2>
+
+    <input
+        type="text"
+        id="search"
+        placeholder="🔎 Search food..."
+        onkeyup="searchFood()"
+    >
+
+    <div class="categories">
+        <button onclick="filterFood('All')">All</button>
+        <button onclick="filterFood('Canteen')">Canteen</button>
+        <button onclick="filterFood('Bakery')">Bakery</button>
+        <button onclick="filterFood('Drinks')">Drinks</button>
+    </div>
+
+    <div id="foodList" class="food-container"></div>
+
+</section>
+
+<!-- CART POPUP -->
+<div id="cartBox" class="cart-box">
+
+    <div class="cart-content">
+
+        <button class="close" onclick="closeCart()">✖</button>
+
+        <h2>🛒 My Cart</h2>
+
+        <div id="cartItems"></div>
+
+        <h3>
+            Total:
+            ₹<span id="cartTotal">0</span>
+        </h3>
+
+        <button class="main-btn" onclick="goDelivery()">
+            Continue →
+        </button>
+
+    </div>
+
+</div>
+
+
+<footer>
+    © 2026 Quick Bite 
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

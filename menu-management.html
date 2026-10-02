@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Management - Quick Bite</title>
+
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+
+<body>
+
+<header class="admin-header">
+
+    <h1>🍔 Quick Bite - Admin Panel</h1>
+
+    <nav>
+        <button onclick="goDashboard()">Dashboard</button>
+        <button onclick="goOrders()">Orders</button>
+        <button onclick="goMenu()">Menu</button>
+        <button onclick="goReports()">Reports</button>
+        <button onclick="logout()">Logout</button>
+    </nav>
+
+</header>
+
+
+<main class="admin-container">
+
+    <h2>🍽️ Menu Management</h2>
+
+    <!-- Add Food Form -->
+
+    <div class="menu-form">
+
+        <h3>Add New Food Item</h3>
+
+        <input type="text" id="foodName" placeholder="Food Name">
+
+        <input type="number" id="foodPrice" placeholder="Price">
+
+        <select id="foodCategory">
+            <option value="Food">Food</option>
+            <option value="Bakery">Bakery</option>
+            <option value="Beverage">Beverage</option>
+        </select>
+
+        <button class="add-btn" onclick="addFood()">
+            ➕ Add Food
+        </button>
+
+    </div>
+
+
+    <!-- Menu Table -->
+
+    <div class="menu-table">
+
+        <h3>Available Menu</h3>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Food Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="menuList"></tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+
+<script>
+
+let menu = JSON.parse(localStorage.getItem("quickBiteMenu")) || [
+
+    {
+        name: "Veg Thali",
+        price: 100,
+        category: "Food"
+    },
+
+    {
+        name: "Masala Dosa",
+        price: 50,
+        category: "Food"
+    },
+
+    {
+        name: "Vada Pav",
+        price: 25,
+        category: "Food"
+    },
+
+    {
+        name: "Samosa",
+        price: 20,
+        category: "Food"
+    },
+
+    {
+        name: "Veg Puff",
+        price: 30,
+        category: "Bakery"
+    },
+
+    {
+        name: "Sandwich",
+        price: 50,
+        category: "Food"
+    },
+
+    {
+        name: "Tea",
+        price: 15,
+        category: "Beverage"
+    },
+
+    {
+        name: "Cold Coffee",
+        price: 45,
+        category: "Beverage"
+    },
+    {
+        name: "Pav bhaji",
+        price: 40,
+        category: "food"
+        
+    }
+
+];
+
+
+displayMenu();
+
+
+function displayMenu() {
+
+    let list = document.getElementById("menuList");
+
+    list.innerHTML = "";
+
+    menu.forEach((food, index) => {
+
+        list.innerHTML += `
+
+        <tr>
+
+            <td>${index + 1}</td>
+
+            <td>${food.name}</td>
+
+            <td>₹${food.price}</td>
+
+            <td>${food.category}</td>
+
+            <td>
+
+                <button class="edit-btn"
+                    onclick="editFood(${index})">
+                    ✏️ Edit
+                </button>
+
+                <button class="delete-btn"
+                    onclick="deleteFood(${index})">
+                    🗑️ Delete
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+
+function addFood() {
+
+    let name = document.getElementById("foodName").value.trim();
+
+    let price = document.getElementById("foodPrice").value;
+
+    let category =
+        document.getElementById("foodCategory").value;
+
+
+    if (name === "" || price === "") {
+
+        alert("Please enter Food Name and Price.");
+
+        return;
+    }
+
+
+    menu.push({
+
+        name: name,
+
+        price: Number(price),
+
+        category: category
+
+    });
+
+
+    saveMenu();
+
+    document.getElementById("foodName").value = "";
+
+    document.getElementById("foodPrice").value = "";
+
+    alert("✅ Food item added successfully!");
+
+}
+
+
+function editFood(index) {
+
+    let newName =
+        prompt("Enter Food Name:", menu[index].name);
+
+    if (newName === null || newName.trim() === "") {
+        return;
+    }
+
+
+    let newPrice =
+        prompt("Enter Price:", menu[index].price);
+
+    if (newPrice === null || newPrice === "") {
+        return;
+    }
+
+
+    menu[index].name = newName.trim();
+
+    menu[index].price = Number(newPrice);
+
+
+    saveMenu();
+
+    alert("✅ Food item updated successfully!");
+
+}
+
+
+function deleteFood(index) {
+
+    let confirmDelete =
+        confirm(
+            "Are you sure you want to delete " +
+            menu[index].name + "?"
+        );
+
+
+    if (confirmDelete) {
+
+        menu.splice(index, 1);
+
+        saveMenu();
+
+        alert("🗑️ Food item deleted!");
+
+    }
+
+}
+
+
+function saveMenu() {
+
+    localStorage.setItem(
+        "quickBiteMenu",
+        JSON.stringify(menu)
+    );
+
+    displayMenu();
+
+}
+
+
+// Navigation
+
+function goDashboard() {
+
+    window.location.href = "dashboard.html";
+
+}
+
+
+function goOrders() {
+
+    window.location.href = "orders.html";
+
+}
+
+
+function goMenu() {
+
+    window.location.href = "menu-management.html";
+
+}
+
+
+function goReports() {
+
+    window.location.href = "reports.html";
+
+}
+
+
+function logout() {
+
+    sessionStorage.removeItem("adminLoggedIn");
+
+    window.location.href = "login.html";
+
+}
+
+</script>
+
+</body>
+</html>

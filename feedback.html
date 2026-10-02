@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content=width-device-width ,initial-scale=1.0"
+    >
+
+    <title>Quick Bite - Feedback</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🍴 Quick Bite
+    </div>
+
+
+    <nav>
+
+        <button onclick="location.href='home.html'">
+            Home
+        </button>
+
+        <button onclick="location.href='about.html'">
+            About Us
+        </button>
+
+        <button onclick="location.href='services.html'">
+            Services
+        </button>
+
+        <button onclick="location.href='orders.html'">
+            📦 My Orders
+        </button>
+
+    </nav>
+
+</header>
+
+
+<section class="section">
+
+    <h2>⭐ Give Your Feedback</h2>
+
+
+    <label>Rating</label>
+
+    <select id="rating">
+
+        <option value="">
+            Select Rating
+        </option>
+
+        <option value="5">
+            ⭐⭐⭐⭐⭐ Excellent
+        </option>
+
+        <option value="4">
+            ⭐⭐⭐⭐ Very Good
+        </option>
+
+        <option value="3">
+            ⭐⭐⭐ Good
+        </option>
+
+        <option value="2">
+            ⭐⭐ Average
+        </option>
+
+        <option value="1">
+            ⭐ Poor
+        </option>
+
+    </select>
+
+
+    <label>Feedback</label>
+
+    <textarea
+        id="feedbackText"
+        rows="5"
+        placeholder="Write your feedback..."
+    ></textarea>
+
+
+    <button
+        class="main-btn"
+        onclick="submitFeedback()"
+    >
+
+        Submit Feedback
+
+    </button>
+
+
+    <p id="feedbackMessage"></p>
+
+</section>
+
+
+<footer>
+
+    © 2026 Quick Bite
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

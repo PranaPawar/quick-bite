@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quick Bite - Order Details</title>
+
+    <link rel="stylesheet" href="admin-style.css">
+
+    <style>
+
+        .details-box {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            max-width: 850px;
+            margin-top: 25px;
+        }
+
+        .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .details-row {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .details-row strong {
+            color: #555;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: #e0f4dc;
+            color: #287239;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .accept-btn,
+        .reject-btn,
+        .back-btn {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .accept-btn {
+            background: #48b89a;
+            color: white;
+        }
+
+        .reject-btn {
+            background: #e85b5b;
+            color: white;
+        }
+
+        .back-btn {
+            background: #eeeeee;
+            color: #333;
+        }
+
+        .accept-btn:hover {
+            background: #35977e;
+        }
+
+        .reject-btn:hover {
+            background: #c94545;
+        }
+
+        .back-btn:hover {
+            background: #dddddd;
+        }
+
+        .not-found {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+
+            .details-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        🍴 Quick Bite
+        <span>Admin Panel</span>
+    </div>
+
+    <nav>
+
+        <button onclick="goDashboard()">
+            🏠 Dashboard
+        </button>
+
+        <button onclick="goOrders()">
+            📦 Orders
+        </button>
+
+        <button onclick="goMenu()">
+            🍔 Menu
+        </button>
+
+        <button onclick="goReports()">
+            📊 Reports
+        </button>
+
+        <button onclick="logout()">
+            🚪 Logout
+        </button>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+    <section class="dashboard">
+
+        <h1>Order Details</h1>
+
+        <p class="welcome">
+            View complete order information
+        </p>
+
+
+        <div id="orderContainer"></div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function goDashboard() {
+
+    window.location.href =
+        "dashboard.html";
+
+}
+
+
+function goOrders() {
+
+    window.location.href =
+        "orders.html";
+
+}
+
+
+function goMenu() {
+
+    window.location.href =
+        "menu-management.html";
+
+}
+
+
+function goReports() {
+
+    window.location.href =
+        "reports.html";
+
+}
+
+
+function logout() {
+
+    alert("You have been logged out.");
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================
+   DISPLAY ORDER
+========================= */
+
+function displayOrder() {
+
+    const container =
+        document.getElementById(
+            "orderContainer"
+        );
+
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem(
+                "quickBiteOrders"
+            )
+        ) || [];
+
+
+    const selectedIndex =
+        localStorage.getItem(
+            "selectedOrderIndex"
+        );
+
+
+    /* CHECK ORDER */
+
+    if (
+        selectedIndex === null ||
+        !orders[selectedIndex]
+    ) {
+
+        container.innerHTML = `
+
+            <div class="not-found">
+
+                <h2>📦 Order Not Found</h2>
+
+                <p>
+                    Please select an order from All Orders.
+                </p>
+
+                <br>
+
+                <button
+                    class="back-btn"
+                    onclick="goOrders()">
+
+                    ← Back to Orders
+
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const order =
+        orders[selectedIndex];
+
+
+    /* DISPLAY */
+
+    container.innerHTML = `
+
+        <div class="details-box">
+
+            <div class="details-header">
+
+                <div>
+
+                    <h2>
+                        Order ID: ${order.id}
+                    </h2>
+
+                    <p>
+                        ${order.date}
+                    </p>
+
+                </div>
+
+                <span class="order-status">
+                    ${order.status}
+                </span>
+
+            </div>
+
+
+            <div class="details-row">
+
+                <strong>Order ID</strong>
+
+                <span>
+                    ${order.id}
+                </span>
+
+            </div>
+
+
+            <div class="details-row">
+
+                <strong>Date & Time</strong>
+
+                <span>
+                    ${order.date}
+                </span>
+
+            </div>
+
+
+            <div class="details-row">
+
+                <strong>Department</strong>
+
+                <span>
+                    ${order.department}
+                </span>
+
+            </div>
+
+
+            <div class="details-row">
+
+                <strong>Room / Location</strong>
+
+                <span>
+                    ${order.room}
+                </span>
+
+            </div>
+
+
+            <div class="details-row">
+
+                <strong>Payment Method</strong>
+
+                <span>
+                    ${order.payment}
+                </span>
+
+            </div>
+
+
+            <div class="details-row">
+
+                <strong>Total Amount</strong>
+
+                <span>
+                    <b>₹${order.total}</b>
+                </span>
+
+            </div>
+
+
+            <div class="action-buttons">
+
+                <button
+                    class="accept-btn"
+                    onclick="acceptOrder()">
+
+                    ✅ Accept Order
+
+                </button>
+
+
+                <button
+                    class="reject-btn"
+                    onclick="rejectOrder()">
+
+                    ❌ Reject Order
+
+                </button>
+
+
+                <button
+                    class="back-btn"
+                    onclick="goOrders()">
+
+                    ← Back
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================
+   ACCEPT ORDER
+========================= */
+
+function acceptOrder() {
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem(
+                "quickBiteOrders"
+            )
+        ) || [];
+
+
+    const index =
+        localStorage.getItem(
+            "selectedOrderIndex"
+        );
+
+
+    if (!orders[index]) return;
+
+
+    orders[index].status =
+        "Accepted";
+
+
+    localStorage.setItem(
+        "quickBiteOrders",
+        JSON.stringify(orders)
+    );
+
+
+    alert(
+        "✅ Order Accepted Successfully!"
+    );
+
+
+    displayOrder();
+
+}
+
+
+/* =========================
+   REJECT ORDER
+========================= */
+
+function rejectOrder() {
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem(
+                "quickBiteOrders"
+            )
+        ) || [];
+
+
+    const index =
+        localStorage.getItem(
+            "selectedOrderIndex"
+        );
+
+
+    if (!orders[index]) return;
+
+
+    const confirmReject =
+        confirm(
+            "Are you sure you want to reject this order?"
+        );
+
+
+    if (!confirmReject) return;
+
+
+    orders[index].status =
+        "Rejected";
+
+
+    localStorage.setItem(
+        "quickBiteOrders",
+        JSON.stringify(orders)
+    );
+
+
+    alert(
+        "❌ Order Rejected."
+    );
+
+
+    displayOrder();
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+displayOrder();
+
+</script>
+
+
+</body>
+
+</html>

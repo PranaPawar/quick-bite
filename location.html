@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Location Verification - Quick Bite</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<header>
+
+    <div class="logo">
+        🍴 Quick Bite
+    </div>
+
+    <nav>
+
+        <button onclick="location.href='home.html'">
+            Home
+        </button>
+
+        <button onclick="location.href='about.html'">
+            About Us
+        </button>
+
+        <button onclick="location.href='services.html'">
+            Services
+        </button>
+
+        <button onclick="location.href='home.html#menu'">
+            Menu
+        </button>
+
+    </nav>
+
+</header>
+
+
+<!-- LOCATION VERIFICATION -->
+
+<section class="section">
+
+    <p class="tag">
+        LOCATION VERIFICATION
+    </p>
+
+    <h2>
+        📍 Check Delivery Location
+    </h2>
+
+    <p>
+        Verify whether your delivery location
+        is within the permitted 1 KM area.
+    </p>
+
+
+    
+        <button
+            class="main-btn"
+            onclick="verifyLocation()">
+
+            📍 Verify Location
+
+        </button>
+
+
+        <p
+            id="locationMessage">
+        </p>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    © 2026 Quick Bite 
+
+</footer>
+
+
+<script src="script.js"></script>
+
+
+<script>
+
+    showLocationDetails();
+
+</script>
+
+
+</body>
+</html>

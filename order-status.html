@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status - Quick Bite</title>
+
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+
+<body>
+
+<header class="admin-header">
+
+    <h1>🍔 Quick Bite - Admin Panel</h1>
+
+    <nav>
+        <button onclick="goDashboard()">🏠 Dashboard</button>
+        <button onclick="goOrders()">📦 Orders</button>
+        <button onclick="goMenu()">🍔 Menu</button>
+        <button onclick="goReports()">📊 Reports</button>
+        <button onclick="logout()">🚪 Logout</button>
+    </nav>
+
+</header>
+
+
+<main class="admin-container">
+
+    <h2>📦 Order Status Management</h2>
+
+    <div id="orderContainer"></div>
+
+</main>
+
+
+<script>
+
+function loadOrders() {
+
+    const orders =
+        JSON.parse(localStorage.getItem("quickBiteOrders")) || [];
+
+    const container =
+        document.getElementById("orderContainer");
+
+    if (orders.length === 0) {
+
+        container.innerHTML =
+            "<p>No orders available.</p>";
+
+        return;
+    }
+
+    let html = `
+        <div class="table-container">
+
+        <table class="order-table">
+
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Current Status</th>
+                    <th>Update Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+    `;
+
+    orders.forEach((order, index) => {
+
+        html += `
+            <tr>
+
+                <td>${order.id}</td>
+
+                <td>${order.date || "-"}</td>
+
+                <td>₹${order.total}</td>
+
+                <td>
+                    <strong>${order.status || "Pending"}</strong>
+                </td>
+
+                <td>
+
+                    <select
+                        onchange="updateStatus(${index}, this.value)"
+                    >
+
+                        <option value="">
+                            Select Status
+                        </option>
+
+                        <option value="Accepted"
+                            ${order.status === "Accepted" ? "selected" : ""}>
+                            Accepted
+                        </option>
+
+                        <option value="Preparing"
+                            ${order.status === "Preparing" ? "selected" : ""}>
+                            Preparing
+                        </option>
+
+                        <option value="Ready"
+                            ${order.status === "Ready" ? "selected" : ""}>
+                            Ready
+                        </option>
+
+                        <option value="Out for Delivery"
+                            ${order.status === "Out for Delivery" ? "selected" : ""}>
+                            Out for Delivery
+                        </option>
+
+                        <option value="Delivered"
+                            ${order.status === "Delivered" ? "selected" : ""}>
+                            Delivered
+                        </option>
+
+                    </select>
+
+                </td>
+
+            </tr>
+        `;
+
+    });
+
+    html += `
+            </tbody>
+
+        </table>
+
+        </div>
+    `;
+
+    container.innerHTML = html;
+}
+
+
+function updateStatus(index, newStatus) {
+
+    if (!newStatus) {
+        return;
+    }
+
+    const orders =
+        JSON.parse(localStorage.getItem("quickBiteOrders")) || [];
+
+    if (!orders[index]) {
+        return;
+    }
+
+    orders[index].status = newStatus;
+
+    localStorage.setItem(
+        "quickBiteOrders",
+        JSON.stringify(orders)
+    );
+
+    alert("Order status updated to " + newStatus);
+
+    loadOrders();
+}
+
+
+/* Navigation */
+
+function goDashboard() {
+    window.location.href = "dashboard.html";
+}
+
+function goOrders() {
+    window.location.href = "orders.html";
+}
+
+function goMenu() {
+    window.location.href = "menu-management.html";
+}
+
+function goReports() {
+    window.location.href = "reports.html";
+}
+
+function logout() {
+
+    sessionStorage.removeItem("adminLoggedIn");
+
+    window.location.href = "login.html";
+}
+
+
+/* Load orders when page opens */
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
